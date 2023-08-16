@@ -1,0 +1,307 @@
+" no map key {{{
+"  cat .vimrc .ideavimrc |grep '<Leader>' |awk -F \<Leader\> '{print$2}'|sort -f
+" ijkl o uvwxyz  
+
+" g[ABCGKLOSWXYZ bclxyz]
+" z[BIJKQSTUVYZ qu]
+"}}}
+
+" Setting {{{
+source ~/.vimrc
+set clipboard+=ideaput
+set ideajoin
+set idearefactormode=select " select keep visual
+" }}}
+
+" Handler {{{
+"" https://github.com/JetBrains/ideavim/wiki/sethandler
+"" n - normal mode
+"" i - insert mode
+"" x - visual mode
+"" v - visual and select modes
+"" a - all modes
+""" One
+sethandler <C-Q> a:vim
+sethandler <C-W> a:vim
+sethandler <C-E> a:vim
+sethandler <C-R> a:vim
+sethandler <C-T> a:vim
+sethandler <C-Y> a:vim
+sethandler <C-U> a:vim
+sethandler <C-I> a:vim
+nnoremap   <C-I> :action Back<CR>
+sethandler <C-O> a:vim
+nnoremap   <C-O> :action Forward<CR>
+sethandler <C-P> a:ide         " Up
+""" Two
+sethandler <C-A> a:vim
+sethandler <C-S> a:vim
+sethandler <C-D> a:vim
+sethandler <C-F> a:ide         " Right
+sethandler <C-G> a:vim
+sethandler <C-H> a:vim
+sethandler <C-J> a:vim
+sethandler <C-K> a:vim
+sethandler <C-L> a:vim
+""" Three
+sethandler <C-Z> a:vim
+sethandler <C-X> a:vim
+sethandler <C-C> a:vim 
+sethandler <C-V> a:vim
+sethandler <C-B> a:ide         " Left
+sethandler <C-N> a:ide         " Down
+sethandler <C-M> a:ide         " Down
+" }}}
+
+" Plugins {{{
+" set quickscope
+
+let g:surround_no_mappings = 1
+nmap ds <Plug>DSurround
+nmap cs <Plug>CSurround
+nmap ys <Plug>YSurround
+nmap gs <Plug>YSurroundiW
+xmap gs <Plug>VSurround
+
+set keep-english-in-normal
+set nokeep-english-in-normal-and-restore-in-insert
+" let keep_input_source_in_normal="com.apple.keylayout.ABC"
+
+"" Shortcut for calling action group
+"" nnoremap <leader>fus :action scopeActions.FindUsagesByScopeActionGroup<CR>
+"" Shortcut for calling individual scope action
+"" nnoremap <leader>fum :action FindUsagesByScopeInModels<CR>
+" }}}
+
+" Bookmark {{{
+nnoremap mT :action ToggleBookmark<CR>
+nnoremap mN :action ToggleBookmarkWithMnemonic<CR>
+nnoremap mM :action ShowBookmarks<CR>
+nnoremap m1 :action GotoBookmark1<CR>
+nnoremap m2 :action GotoBookmark2<CR>
+nnoremap m3 :action GotoBookmark3<CR>
+nnoremap m4 :action GotoBookmark4<CR>
+nnoremap m5 :action GotoBookmark5<CR>
+nnoremap ma :action GotoBookmarkA<CR>
+nnoremap mb :action GotoBookmarkB<CR>
+nnoremap mc :action GotoBookmarkC<CR>
+nnoremap md :action GotoBookmarkD<CR>
+nnoremap me :action GotoBookmarkE<CR>
+nnoremap mf :action GotoBookmarkF<CR>
+nnoremap mg :action GotoBookmarkG<CR>
+nnoremap mh :action GotoBookmarkH<CR>
+nnoremap mi :action GotoBookmarkI<CR>
+nnoremap mj :action GotoBookmarkJ<CR>
+nnoremap mk :action GotoBookmarkK<CR>
+nnoremap ml :action GotoBookmarkL<CR>
+nnoremap mm :action GotoBookmarkM<CR>
+nnoremap mn :action GotoBookmarkN<CR>
+nnoremap mo :action GotoBookmarkO<CR>
+nnoremap mp :action GotoBookmarkP<CR>
+nnoremap mq :action GotoBookmarkQ<CR>
+nnoremap mr :action GotoBookmarkR<CR>
+nnoremap ms :action GotoBookmarkS<CR>
+nnoremap mt :action GotoBookmarkT<CR>
+nnoremap mu :action GotoBookmarkU<CR>
+nnoremap mv :action GotoBookmarkV<CR>
+nnoremap mw :action GotoBookmarkW<CR>
+nnoremap mx :action GotoBookmarkX<CR>
+nnoremap my :action GotoBookmarkY<CR>
+nnoremap mz :action GotoBookmarkY<CR>
+
+" nnoremap mM :action ShowTypeBookmarks<CR>
+" }}}
+
+" Registers {{{
+:let @a=':%s/\/\*\*\n\s*\* \(.*\)\n\s*\*\/\n\s*private/@ApiModelProperty(value = "\1")\t\r\tprivate<CR>'
+:let @b=':%s/Result.success(\(.*\));/\1;/g<CR>'
+:let @j=':%s/-prod-SNAP/-SNAP/g<CR>'
+:let @d=':%s/:test}/:dev}/g<CR>'
+:let @t=':%s/:dev}/:test}/g<CR>'
+"" tab excel header
+:let @e=':s/\(.\{-}\)\t/@ExcelProperty("\1")\t\rprivate String book;\t\r/g<CR>'
+" }}}
+
+" keymaps
+" General {{{
+nnoremap zr :action ExpandAllRegions<CR>
+nnoremap zm :action CollapseAllRegions<CR>
+nnoremap zv :action ExpandAllToLevel<CR>
+
+nnoremap zo :action ExpandRegionRecursively<CR>
+nnoremap zc :action CollapseRegionRecursively<CR>
+
+nnoremap u :action $Undo<CR>
+vnoremap gU U
+vnoremap gu u
+vnoremap zz :action EditorAddCaretPerSelectedLine<CR>
+
+nnoremap <Leader>; :action $LRU<CR>
+nnoremap <Leader>a :action ShowIntentionActions<CR>
+nnoremap <Leader>q :action CloseProject<CR>
+nnoremap <Leader>t :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>h :action LocalHistory.ShowHistory<CR>
+
+nnoremap <Leader><Space><Space> :action OpenInBrowser<CR>
+" }}}
+
+" Windows (Exist Override .vimrc) {{{
+nnoremap <Space>q :action CloseAllEditors<CR>
+nnoremap <Space>w :action CloseAllEditorsButActive<CR>
+nnoremap <Space>a :action MergeAllWindowsAction<CR>
+nnoremap <Space>j :action MoveTabDown<CR>
+nnoremap <Space>J :action SplitHorizontally<CR>
+nnoremap <Space>l :action MoveTabRight<CR>
+nnoremap <Space>L :action SplitVertically<CR>
+nnoremap <Space>c :action ChangeSplitOrientation<CR>
+nnoremap <Space>m :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <Space><Esc> :action Unsplit<CR>
+nnoremap <Space><Space><Esc> :action UnsplitAll<CR>
+" }}}
+
+" Tool {{{
+nnoremap <Space>t :action ActivateTerminalToolWindow<CR>
+nnoremap <Space>r :action ActivateRunToolWindow<CR>
+nnoremap <Space>d :action ActivateDebugToolWindow<CR>
+nnoremap <Space>s :action ActivateServicesToolWindow<CR>
+nnoremap <Space>f :action FileStructurePopup<CR>
+nnoremap <Space>b :action ActivateBuildToolWindow<CR>
+nnoremap <Space>n :action EditSourceInNewWindow<CR>
+" }}}
+
+" Navigate {{{
+nnoremap gq :action QuickJavaDoc<CR>
+nnoremap gw :e ~/.ideavimrc<CR>
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GotoPreviousError<CR>
+nnoremap gr :action GotoRelated<CR>
+nnoremap gt :action GotoTest<CR>
+nnoremap gy :action QuickImplementations<CR>
+nnoremap go :action FindUsages<CR>
+nnoremap gp :action VcsShowCurrentChangeMarker<CR>
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+
+nnoremap ga :action JumpToLastChange<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gf :action SelectInProjectView<CR>
+nnoremap gl :action GotoImplementation<cr>
+nnoremap gb :action ShowNavBar<CR>
+nnoremap gn :action VcsShowNextChangeMarker<CR>jk
+nnoremap gm :action GotoSuperMethod<CR>
+nnoremap \e :action ExternalSystem.ProjectRefreshAction<CR>
+
+nnoremap gI :action bunny.terminal.OpenTerminalAction<CR>
+nnoremap gF :action RevealIn<CR>
+" }}}
+
+" Misc [e] {{{
+vnoremap <Leader>ee :action CompareClipboardWithSelection<CR>
+nnoremap <Leader>ec :action CopyReferencePopupGroup<CR>
+nnoremap <Leader>ed :action ShowUmlDiagram<CR>
+" }}}
+
+" Code & Refactor [c] {{{
+nnoremap <Leader>cr :action RenameElement<CR>
+nnoremap <Leader>cR :action RenameFile<CR>
+nnoremap <Leader>cu :action CopyReference<CR>
+nnoremap <Leader>ci :action ImplementMethods<CR>
+nnoremap <Leader>co :action OverrideMethods<CR>
+
+
+nnoremap <Leader>ca :action OptimizeImports<CR>
+vnoremap <Leader>cs :action SurroundWith<CR>
+nnoremap <Leader>ch :action osmedile.intellij.stringmanip.PopupChoiceAction<CR>
+ noremap <Leader>cj :action StringManipulation.ToSnakeCaseOrCamelCase<CR><Esc>
+ noremap <Leader>ck :action osmedile.intellij.stringmanip.RepeatAction<CR><Esc>
+vnoremap <Leader>cl :action osmedile.intellij.stringmanip.RemoveEmptyLinesAction<CR>
+
+ noremap <Leader>cc :action ReformatCode<CR>
+nnoremap <Leader>cv :action IntroduceVariable<CR>
+nnoremap <Leader>cb :action Inline<CR>
+nnoremap <Leader>cn :action Generate<CR>
+" }}}
+
+" VCS [g] {{{
+nnoremap <Leader>gr :action Vcs.RollbackChangedLines<CR>
+nnoremap <Leader>ga :action Annotate<CR>
+nnoremap <Leader>gh :action Vcs.ShowTabbedFileHistory<CR>
+vnoremap <Leader>gh :action Vcs.ShowHistoryForBlock<CR>
+nnoremap <Leader>gg :action Git.CompareWithBranch<CR>
+nnoremap <Leader>gz :action ChangesView.Revert<CR>
+nnoremap <Leader>gv :action Vcs.QuickListPopupAction<CR>
+nnoremap <Leader>gn :action ActivateCommitToolWindow<CR>
+" }}}
+
+" Run&Debug [r] {{{
+nnoremap <Leader>rq :action Resume<CR>
+nnoremap <Leader>rr :action RunClass<CR>
+nnoremap <Leader>rt :action ChooseRunConfiguration<CR>
+nnoremap <Leader>ru :action EvaluateExpression<CR>
+nnoremap <Leader>ri :action StepInto<CR>
+nnoremap <Leader>ro :action StepOut<CR>
+nnoremap <Leader>rd :action DebugClass<CR>
+nnoremap <Leader>rs :action Stop<CR> :action Stop<CR>
+nnoremap <Leader>rj :action StepOver<CR>
+nnoremap <Leader>rc :action RunToCursor<CR>
+nnoremap <Leader>rb :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>rv :action ViewBreakpoints<CR>
+
+
+nnoremap <Leader>rp :action Maven.ReimportProject<CR>
+nnoremap <Leader>rm :action MakeModule<CR>
+" }}}
+
+" AsciiDoc [f] {{{
+nnoremap <Leader>ff :action org.asciidoc.intellij.actions.editorlayout.EditorOnlyLayoutChangeAction<CR>
+nnoremap <Leader>fa :action org.asciidoc.intellij.actions.editorlayout.EditorAndPreviewLayoutChangeAction<CR>
+nnoremap <Leader>fp :action org.asciidoc.intellij.actions.asciidoc.PasteImageAction<CR>
+nnoremap <Leader>fq :action org.asciidoc.intellij.actions.asciidoc.CreatePdfAction<CR>
+nnoremap <Leader>fw :action org.asciidoc.intellij.actions.asciidoc.CreateHtmlAction<CR>
+nnoremap <Leader>fe :action org.asciidoc.intellij.actions.asciidoc.CreateDocAction<CR>
+" }}}
+
+
+" echo &ide | has('ide')  https://github.com/JetBNains/ideavim#executing-ide-actions
+" IDEA {{{
+if &ide =~? 'IntelliJ IDEA Ultimate Edition'
+    nnoremap zm :action CollapseAllRegions<CR> :action ExpandAllRegions<CR>
+
+    nnoremap <Leader>v :action ToggleRenderedDocPresentation<CR>
+
+    nnoremap g/ :action Tool.GotoRequestService<CR>
+
+    nnoremap <Leader>w :action Rainbow.ScopeHighlightingAction<CR>
+    nnoremap <Leader>W :action Rainbow.ScopeOutsideHighlightingRestrainAction<CR>
+
+    nnoremap <Space>M :action ActivateMybatisLogPlusToolWindow<CR>
+endif
+"" }}}
+
+" DataGrip {{{
+if &ide =~? 'DataGrip'
+    nnoremap <Leader>ss :action Console.Jdbc.ChooseSession<CR>
+    nnoremap <Leader>dd :action Console.Jdbc.ChooseSchema<CR>
+    nnoremap <Leader>rr :action Console.Jdbc.Execute<CR>
+    nnoremap <Leader>rs :action Console.Jdbc.Cancel<CR> :action Console.Jdbc.Cancel<CR>
+    nnoremap <Leader>rh :action Console.Jdbc.BrowseHistory<CR>
+    nnoremap <Leader>rj :action Console.Jdbc.Execute.2<CR>
+    nnoremap <Leader>rk :action Console.Jdbc.Execute.3<CR>
+endif
+" }}}
+
+" PyCharm {{{
+if &ide =~? 'PyCharm'
+endif
+"" }}}
+
+" WebStorm {{{
+if &ide =~? 'WebStorm'
+endif
+" }}}
+
+" Functions {{{
+fun! Asciidoc()
+    nnoremap zm :action ExpandToLevel1<CR>
+endfun
+" }}}

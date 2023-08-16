@@ -1,0 +1,15 @@
+# github
+User git
+Host github.com
+HostName github.com
+ProxyCommand nc -x 127.0.0.1:6153 %h %p
+IdentityFile ~/.ssh/id_rsa_github
+PreferredAuthentications publickey
+
+# github
+User git
+Host github000.com
+HostName github.com
+ProxyCommand nc -x 127.0.0.1:6153 %h %p
+IdentityFile ~/.ssh/id_rsa_github_000
+PreferredAuthentications publickey
